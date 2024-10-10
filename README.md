@@ -7,7 +7,7 @@ Features:
 - Add new tasks
 - Limits tasks to 7 at a time
 
-App Screenshot:
+App Screenshot: **_TODO_**
 
 Requirements:
 - The tasks need to be shown in a RecyclerView.
