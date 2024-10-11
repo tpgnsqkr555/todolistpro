@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
