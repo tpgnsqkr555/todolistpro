@@ -1,8 +1,12 @@
 package com.example.to_dolist
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -11,6 +15,14 @@ import androidx.core.view.WindowInsetsCompat
  * Entry Activity for when the application is launched
  */
 class MainActivity : AppCompatActivity() {
+    //Launcher for TaskActivity results
+    private val addTaskLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            //Handle the response from the TaskActivity
+            var received_result = result.data?.getStringExtra("RESULT")
+            Log.i("Activities", "MainActivity - Received result: $received_result from TaskActivity")
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,10 +38,14 @@ class MainActivity : AppCompatActivity() {
 
         //Add listeners to the buttons that launch the related activities
         addButton.setOnClickListener{
-            //TODO: launch the AddTaskActivity
+            Log.i("Buttons","Add button pressed - MainActivity")
+            val taskIntent = Intent(this, TaskActivity::class.java)
+            addTaskLauncher.launch(taskIntent)
         }
         aboutButton.setOnClickListener{
-            //TODO: launch the AboutActivity
+            Log.i("Buttons","About button pressed - MainActivity")
+            val aboutIntent = Intent(this, AboutActivity::class.java)
+            startActivity(aboutIntent)
         }
     }
 }
