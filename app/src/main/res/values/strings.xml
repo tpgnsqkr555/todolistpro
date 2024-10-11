@@ -11,4 +11,10 @@
     <string name="gilmore_img_desc">Gilmore: Developer</string>
     <string name="sehoon_img_desc">Sehoon: Developer</string>
     <string name="app_logo">App Logo</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="task_name_prompt">Enter New Task Name</string>
+    <string name="task_input_rules">25 characters allowed.\nEnter at least 3 characters.</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
