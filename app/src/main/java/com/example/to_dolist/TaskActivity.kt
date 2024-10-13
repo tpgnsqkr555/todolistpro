@@ -17,6 +17,7 @@ class TaskActivity : AppCompatActivity() {
     private var acceptableInput: Boolean = false
     private var result: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("Activities", "TaskActivity - onCreate called")
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_task)
@@ -50,6 +51,58 @@ class TaskActivity : AppCompatActivity() {
             Log.i("Buttons","Cancel button pressed - TaskActivity")
             Log.i("Activities","TaskActivity - Close without Result")
             finish()
+        }
+    }
+
+    @Override
+    override fun onStart() {
+        Log.i("Activities", "TaskActivity - onStart called")
+        super.onStart()
+    }
+
+    @Override
+    override fun onResume() {
+        Log.i("Activities", "TaskActivity - onResume called")
+        super.onResume()
+    }
+
+    @Override
+    override fun onPause() {
+        Log.i("Activities", "TaskActivity - onPause called")
+        super.onPause()
+    }
+
+    @Override
+    override fun onStop() {
+        Log.i("Activities", "TaskActivity - onStop called")
+        super.onStop()
+    }
+
+    @Override
+    override fun onDestroy() {
+        Log.i("Activities", "TaskActivity - onDestroy called")
+        super.onDestroy()
+    }
+
+    @Override
+    override fun onSaveInstanceState(outState: Bundle) {
+        Log.i("Activities", "TaskActivity - onSaveInstanceState called")
+        outState.run {
+            putString("STATE_RESULT", result)
+        }
+        super.onSaveInstanceState(outState)
+    }
+    companion object {
+        val STATE_RESULT = "STATE_RESULT"
+    }
+
+    @Override
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        Log.i("Activities", "TaskActivity - onRestoreInstanceState called")
+        super.onRestoreInstanceState(savedInstanceState)
+
+        savedInstanceState.run {
+            result = getString("STATE_RESULT","")
         }
     }
 }
