@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="45dp"
-    android:paddingVertical="20dp"
+    android:layout_marginHorizontal="45dp"
+    android:layout_marginVertical="20dp"
     tools:context=".AboutActivity">
 
 
