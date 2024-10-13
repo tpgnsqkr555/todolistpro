@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskAdapter (private val dataSet: Array<String?>, private val listener: RecyclerViewEvent) :
+class TaskAdapter (private val dataSet: ArrayList<String>, private val listener: RecyclerViewEvent) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {interface RecyclerViewEvent {
 
         //Returns the clicked item position
@@ -25,6 +25,7 @@ class TaskAdapter (private val dataSet: Array<String?>, private val listener: Re
         }
     }
 
+    @Override
     override fun onCreateViewHolder(
         viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
@@ -34,6 +35,7 @@ class TaskAdapter (private val dataSet: Array<String?>, private val listener: Re
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @Override
     override fun onBindViewHolder(viewHolder: ViewHolder,
                                   position: Int) {
         if (dataSet[position]!=null)
@@ -42,5 +44,8 @@ class TaskAdapter (private val dataSet: Array<String?>, private val listener: Re
             viewHolder.textView.text =  ""
     }
     //Returns the size of the dataset
-    override fun getItemCount() = dataSet.size
+    @Override
+    override fun getItemCount() =
+        if (dataSet.size>7) 7
+        else dataSet.size
 }
