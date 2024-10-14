@@ -32,14 +32,14 @@
         <ImageView
             android:id="@+id/about_image"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/profile_img_dims"
             android:contentDescription="@string/about_image_desc"
             tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/about_devs"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
@@ -55,7 +55,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,17 +63,19 @@
 
             <ImageView
                 android:id="@+id/gilmore_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent=".25"
+                android:layout_height="@dimen/profile_img_dims"
                 android:contentDescription="@string/gilmore_img_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:src="@drawable/gilmore_profile" />
 
             <LinearLayout
                 android:id="@+id/gilmore_about_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent=".75"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
@@ -110,7 +111,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="5dp"
             android:paddingTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -120,8 +120,9 @@
 
             <ImageView
                 android:id="@+id/sehoon_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent=".25"
+                android:layout_height="@dimen/profile_img_dims"
                 android:contentDescription="@string/sehoon_img_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +131,8 @@
 
             <LinearLayout
                 android:id="@+id/sehoon_about_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent=".75"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"

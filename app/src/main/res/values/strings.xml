@@ -4,7 +4,7 @@
     <string name="about">About</string>
     <string name="about_the_app">About the App</string>
     <string name="gilmore">Gilmore</string>
-    <string name="gilmore_bio">placeholder<!-- TODO: Add a bio for the About Page --></string>
+    <string name="gilmore_bio">Hello, I am a Junior at Indiana University - Bloomington studying Computer Science. I enjoy traveling, fitness, foreign cultures, and live music. I have a professional background across several industries and positions.</string>
     <string name="sehoon_bio">placeholder<!-- TODO: Add a bio for the About Page --></string>
     <string name="sehoon">Sehoon</string>
     <string name="about_image_desc">About the application and devs</string>
@@ -18,4 +18,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="checkbox_status">Checkbox: Disabled</string>
+    <string name="mark_as_complete">Mark as Complete</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>

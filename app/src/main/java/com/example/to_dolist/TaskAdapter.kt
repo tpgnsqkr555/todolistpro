@@ -3,6 +3,7 @@ package com.example.to_dolist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -16,6 +17,12 @@ class TaskAdapter (private val dataSet: ArrayList<String>, private val listener:
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) , View.OnClickListener {
         val textView: TextView
+        val imageView: ImageView
+
+        init {
+            imageView = view.findViewById(R.id.task_checkbox)
+            imageView.setOnClickListener(this)
+        }
         init {
             textView = view.findViewById(R.id.task_item)
             textView.setOnClickListener(this)
