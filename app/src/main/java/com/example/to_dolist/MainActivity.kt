@@ -85,16 +85,28 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val aboutButton: Button = findViewById(R.id.about_button)
 
         //Add listeners to the buttons that launch the related activities
-        addButton.setOnClickListener{
-            Log.i("Buttons","Add button pressed - MainActivity")
-            val taskIntent = Intent(this, TaskActivity::class.java)
-            addTaskLauncher.launch(taskIntent)
+
+        //Add Listener:
+        if (count<7) {
+            //Add listener to the button that launch the related activity
+            addButton.setOnClickListener{
+                Log.i("Buttons", "Add button pressed - MainActivity")
+                val taskIntent = Intent(this, TaskActivity::class.java)
+                addTaskLauncher.launch(taskIntent)
+            }
+        } else {
+            addButton.text = getString(R.string.too_much_work)
+            //Add listener to the button that logs the input
+            addButton.setOnClickListener {
+                Log.i("Buttons", "Add button pressed, but too many tasks - MainActivity")
+            }
         }
         aboutButton.setOnClickListener{
             Log.i("Buttons","About button pressed - MainActivity")
             val aboutIntent = Intent(this, AboutActivity::class.java)
             startActivity(aboutIntent)
         }
+        //Save preferences
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         count = sharedPref.getString("INDEX", "0").toString().toInt()
         for (i:Int in 0..count) {
@@ -126,6 +138,23 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val recyclerView: RecyclerView = findViewById(R.id.tasks_home)
         recyclerView.layoutManager = LinearLayoutManager(this) //Set the layout manager type
         recyclerView.adapter = TaskAdapter(tasks, this) //Set the Adapter
+
+        val addButton: Button = findViewById(R.id.add_task_button)
+
+        if (count<7) {
+            //Add listener to the button that launch the related activity
+            addButton.setOnClickListener{
+                Log.i("Buttons", "Add button pressed - MainActivity")
+                val taskIntent = Intent(this, TaskActivity::class.java)
+                addTaskLauncher.launch(taskIntent)
+            }
+        } else {
+            addButton.text = getString(R.string.too_much_work)
+            //Add listener to the button that logs the input
+            addButton.setOnClickListener {
+                Log.i("Buttons", "Add button pressed, but too many tasks - MainActivity")
+            }
+        }
     }
 
     @Override
