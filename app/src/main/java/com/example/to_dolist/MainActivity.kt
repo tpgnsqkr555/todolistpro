@@ -20,29 +20,53 @@ import androidx.recyclerview.widget.RecyclerView
 class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
     //Initialize the database and the Adapter
     var tasks: ArrayList<String> = ArrayList()
-    var index = 0
+    var count = 0
 
     //Launcher for TaskActivity results
     private val addTaskLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             //Handle the response from the TaskActivity
-            var received_result = result.data?.getStringExtra("RESULT")
-            Log.i("Activities", "MainActivity - Received result: $received_result from TaskActivity")
-            if (received_result != null && index < 7) {
-                tasks.add(received_result)
-                index++
+            var newTask = result.data?.getStringExtra("NEW_TASK")
+            Log.i("Activities", "MainActivity - Received result: $newTask from TaskActivity")
+            if (newTask != null && count < 7) {
+                tasks.add(newTask)
+                count++
             }
         }
     }
+    //Launcher for EditTaskActivity results
+    private val editTaskLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            //Handle the response from the EditTaskActivity
+            val taskIndex = result.data?.getIntExtra("INDEX",-1)
+            if (taskIndex in 0..6) {
+                Log.i("Activities", "MainActivity - Removing task $taskIndex from EditTaskActivity")
+                tasks.removeAt(taskIndex!!)
+                count--
+            }
+        }
+    }
+
+    /**
+     * Description: Handles user interaction when clicking a RecyclerView list item
+     * @param position is the index of the item being clicked
+     */
     @Override
     override fun onItemClick(position: Int) {
         Log.i("Buttons", "MainActivity - Task item $position pressed")
+        val editIntent = Intent(this, EditTaskActivity::class.java)
+        editIntent.putExtra("INDEX",position)
+        editIntent.putExtra("COUNT",count)
+        for (i:Int in 0..count) {
+            editIntent.putExtra("TASK_$i",tasks[i])
+        }
+        editTaskLauncher.launch(editIntent)
     }
 
     @Override
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i("Activities", "MainActivity - onCreate called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
@@ -72,8 +96,8 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
             startActivity(aboutIntent)
         }
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
-        index = sharedPref.getString("INDEX", "0").toString().toInt()
-        for (i:Int in 0..index) {
+        count = sharedPref.getString("INDEX", "0").toString().toInt()
+        for (i:Int in 0..count) {
             if (sharedPref.getString("TASK $i", "Issue").toString() != "Issue") {
                 tasks.add(sharedPref.getString("TASK $i", "Issue...").toString())
             }
@@ -84,30 +108,42 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
     override fun onStart() {
         super.onStart()
         Log.i("Activities", "MainActivity - onStart called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
+
+        //Initialize the RecyclerView:
+        val recyclerView: RecyclerView = findViewById(R.id.tasks_home)
+        recyclerView.layoutManager = LinearLayoutManager(this) //Set the layout manager type
+        recyclerView.adapter = TaskAdapter(tasks, this) //Set the Adapter
     }
 
     @Override
     override fun onRestart() {
         Log.i("Activities", "MainActivity - onRestart called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
         super.onRestart()
+
+        //Initialize the RecyclerView:
+        val recyclerView: RecyclerView = findViewById(R.id.tasks_home)
+        recyclerView.layoutManager = LinearLayoutManager(this) //Set the layout manager type
+        recyclerView.adapter = TaskAdapter(tasks, this) //Set the Adapter
     }
 
     @Override
     override fun onResume() {
         Log.i("Activities", "MainActivity - onResume called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
         super.onResume()
+
+        //Initialize the RecyclerView:
         val recyclerView: RecyclerView = findViewById(R.id.tasks_home)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = LinearLayoutManager(this) //Set the layout manager type
         recyclerView.adapter = TaskAdapter(tasks, this) //Set the Adapter
     }
 
     @Override
     override fun onPause() {
         Log.i("Activities", "MainActivity - onPause called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
         super.onPause()
     }
 
@@ -115,11 +151,11 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
     override fun onStop() {
         super.onStop()
         Log.i("Activities", "MainActivity - onStop called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
-            putString("INDEX","$index")
-            for (i:Int in 0..index) {
+            putString("INDEX","$count")
+            for (i:Int in 0..count) {
                 putString("TASK $i", tasks[i])
             }
             apply()
@@ -132,18 +168,20 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         super.onDestroy()
     }
 
+    /**
+     * Description:
+     */
     @Override
     override fun onSaveInstanceState(outState: Bundle) {
         Log.i("Activities", "MainActivity - onSaveInstanceState called")
-        Log.i("Values", "MainActivity - index is $index")
-        // Save the user's current game state.
+        Log.i("Values", "MainActivity - index is $count")
+        // Save the user's current tasks state
         outState.run {
-            for (i: Int in 0..index) {
+            for (i: Int in 0..count) {
                 putString("TASK_$i", tasks[i])
             }
-            putString("INDEX","$index")
+            putString("INDEX","$count")
         }
-        // Always call the superclass so it can save the view hierarchy state.
         super.onSaveInstanceState(outState)
     }
     companion object {
@@ -156,15 +194,19 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val TASK_5 = "TASK_5"
         val TASK_6 = "TASK_6"
     }
+
+    /**
+     * Description:
+     */
     @Override
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         Log.i("Activities", "MainActivity - onRestoreInstanceState called")
-        Log.i("Values", "MainActivity - index is $index")
+        Log.i("Values", "MainActivity - index is $count")
         super.onRestoreInstanceState(savedInstanceState)
         // Restore tasks from saved instance.
         savedInstanceState.run {
-            index = getString("INDEX","0").toString().toInt()
-            for (i:Int in 0..index) {
+            count = getString("INDEX","0").toString().toInt()
+            for (i:Int in 0..count) {
                 tasks.add(getString("TASK_$i","").toString())
             }
         }
