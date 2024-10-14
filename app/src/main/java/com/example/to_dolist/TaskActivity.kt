@@ -42,7 +42,7 @@ class TaskActivity : AppCompatActivity() {
             if (acceptableInput) {//If the input is acceptable, save the result to the resultIntent
                 Log.i("Activities","TaskActivity - Close with Result: $result")
                 val resultIntent = Intent()
-                resultIntent.putExtra("RESULT",result)
+                resultIntent.putExtra("NEW_TASK",result)
                 setResult(RESULT_OK, resultIntent)
                 finish()
             } else Log.i("Activities","TaskActivity - Result not valid")
