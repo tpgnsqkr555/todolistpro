@@ -21,6 +21,7 @@ class TaskAdapter (private val dataSet: ArrayList<String>, private val listener:
 
         init {
             imageView = view.findViewById(R.id.task_checkbox)
+            imageView.setImageResource(R.drawable.to_do_list_app_4_checkbox)
             imageView.setOnClickListener(this)
         }
         init {
