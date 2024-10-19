@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         if (result.resultCode == Activity.RESULT_OK) {
             //Handle the response from the EditTaskActivity
             val taskIndex = result.data?.getIntExtra("INDEX",-1)
-            if (taskIndex in 0..6) {
+            if (taskIndex in 0..<count) {
                 Log.i("Activities", "MainActivity - Removing task $taskIndex from EditTaskActivity")
                 tasks.removeAt(taskIndex!!)
                 count--
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val editIntent = Intent(this, EditTaskActivity::class.java)
         editIntent.putExtra("INDEX",position)
         editIntent.putExtra("COUNT",count)
-        for (i:Int in 0..count) {
+        for (i:Int in 0..<count) {
             editIntent.putExtra("TASK_$i",tasks[i])
         }
         editTaskLauncher.launch(editIntent)
@@ -85,19 +85,31 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val aboutButton: Button = findViewById(R.id.about_button)
 
         //Add listeners to the buttons that launch the related activities
-        addButton.setOnClickListener{
-            Log.i("Buttons","Add button pressed - MainActivity")
-            val taskIntent = Intent(this, TaskActivity::class.java)
-            addTaskLauncher.launch(taskIntent)
+
+        //Add Listener:
+        if (count<7) {
+            //Add listener to the button that launch the related activity
+            addButton.setOnClickListener{
+                Log.i("Buttons", "Add button pressed - MainActivity")
+                val taskIntent = Intent(this, TaskActivity::class.java)
+                addTaskLauncher.launch(taskIntent)
+            }
+        } else {
+            addButton.text = getString(R.string.too_much_work)
+            //Add listener to the button that logs the input
+            addButton.setOnClickListener {
+                Log.i("Buttons", "Add button pressed, but too many tasks - MainActivity")
+            }
         }
         aboutButton.setOnClickListener{
             Log.i("Buttons","About button pressed - MainActivity")
             val aboutIntent = Intent(this, AboutActivity::class.java)
             startActivity(aboutIntent)
         }
+        //Save preferences
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         count = sharedPref.getString("INDEX", "0").toString().toInt()
-        for (i:Int in 0..count) {
+        for (i:Int in 0..<count) {
             if (sharedPref.getString("TASK $i", "Issue").toString() != "Issue") {
                 tasks.add(sharedPref.getString("TASK $i", "Issue...").toString())
             }
@@ -114,6 +126,28 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val recyclerView: RecyclerView = findViewById(R.id.tasks_home)
         recyclerView.layoutManager = LinearLayoutManager(this) //Set the layout manager type
         recyclerView.adapter = TaskAdapter(tasks, this) //Set the Adapter
+
+        //Instantiate Main Page Buttons:
+        val addButton: Button = findViewById(R.id.add_task_button)
+        val aboutButton: Button = findViewById(R.id.about_button)
+
+        //Add listeners to the buttons that launch the related activities
+
+        //Add Listener:
+        if (count<7) {
+            //Add listener to the button that launch the related activity
+            addButton.setOnClickListener{
+                Log.i("Buttons", "Add button pressed - MainActivity")
+                val taskIntent = Intent(this, TaskActivity::class.java)
+                addTaskLauncher.launch(taskIntent)
+            }
+        } else {
+            addButton.text = getString(R.string.too_much_work)
+            //Add listener to the button that logs the input
+            addButton.setOnClickListener {
+                Log.i("Buttons", "Add button pressed, but too many tasks - MainActivity")
+            }
+        }
     }
 
     @Override
@@ -126,6 +160,23 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val recyclerView: RecyclerView = findViewById(R.id.tasks_home)
         recyclerView.layoutManager = LinearLayoutManager(this) //Set the layout manager type
         recyclerView.adapter = TaskAdapter(tasks, this) //Set the Adapter
+
+        val addButton: Button = findViewById(R.id.add_task_button)
+
+        if (count<7) {
+            //Add listener to the button that launch the related activity
+            addButton.setOnClickListener{
+                Log.i("Buttons", "Add button pressed - MainActivity")
+                val taskIntent = Intent(this, TaskActivity::class.java)
+                addTaskLauncher.launch(taskIntent)
+            }
+        } else {
+            addButton.text = getString(R.string.too_much_work)
+            //Add listener to the button that logs the input
+            addButton.setOnClickListener {
+                Log.i("Buttons", "Add button pressed, but too many tasks - MainActivity")
+            }
+        }
     }
 
     @Override
@@ -155,10 +206,12 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString("INDEX","$count")
-            for (i:Int in 0..count) {
-                putString("TASK $i", tasks[i])
+            if (count>0) {
+                for (i: Int in 0..<count) {
+                    putString("TASK $i", tasks[i])
+                }
+                apply()
             }
-            apply()
         }
     }
 
@@ -176,11 +229,13 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         Log.i("Activities", "MainActivity - onSaveInstanceState called")
         Log.i("Values", "MainActivity - index is $count")
         // Save the user's current tasks state
-        outState.run {
-            for (i: Int in 0..count) {
-                putString("TASK_$i", tasks[i])
+        if (count>0) {
+            outState.run {
+                for (i: Int in 0..<count) {
+                    putString("TASK_$i", tasks[i])
+                }
+                putString("INDEX", "$count")
             }
-            putString("INDEX","$count")
         }
         super.onSaveInstanceState(outState)
     }
@@ -206,8 +261,10 @@ class MainActivity : AppCompatActivity(), TaskAdapter.RecyclerViewEvent {
         // Restore tasks from saved instance.
         savedInstanceState.run {
             count = getString("INDEX","0").toString().toInt()
-            for (i:Int in 0..count) {
-                tasks.add(getString("TASK_$i","").toString())
+            if (count>0) {
+                for (i:Int in 0..<count) {
+                    tasks.add(getString("TASK_$i","").toString())
+                }
             }
         }
     }

@@ -21,13 +21,15 @@
         tools:ignore="UseCompoundDrawables">
         <ImageView
             android:id="@+id/app_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:maxWidth="120dp"
+            android:maxHeight="120dp"
             android:contentDescription="@string/app_logo"
             android:paddingHorizontal="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/to_do_list_app_3_app_icon"/>
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"

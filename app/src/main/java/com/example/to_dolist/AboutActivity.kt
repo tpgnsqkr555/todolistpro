@@ -30,4 +30,40 @@ class AboutActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    @Override
+    override fun onStart() {
+        Log.i("Activities","AboutActivity - onStart called")
+        super.onStart()
+    }
+
+    @Override
+    override fun onRestart() {
+        Log.i("Activities","AboutActivity - onRestart called")
+        super.onRestart()
+    }
+
+    @Override
+    override fun onResume() {
+        Log.i("Activities","AboutActivity - onResume called")
+        super.onResume()
+    }
+
+    @Override
+    override fun onPause() {
+        Log.i("Activities","AboutActivity - onPause called")
+        super.onPause()
+    }
+
+    @Override
+    override fun onStop() {
+        Log.i("Activities","AboutActivity - onStop called")
+        super.onStop()
+    }
+
+    @Override
+    override fun onDestroy() {
+        Log.i("Activities","AboutActivity - onDestroy called")
+        super.onDestroy()
+    }
 }
