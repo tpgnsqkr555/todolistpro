@@ -1,43 +1,44 @@
-To-Do List App (Cloud-based Version)
+## **To-Do List App (Cloud-based Version with Firebase)**
 
-Purpose
+### **Purpose**
+This project transforms the to-do list application into a cloud-based version by utilizing **Firebase** for task storage and user authentication. The app allows users to manage and organize their personal tasks, while securely storing data on the cloud.
 
-The purpose of this project is to provide a cloud-based to-do list application for users to track, edit, and view their personal tasks.
+---
 
-Features
+### **Features**
+- **Cloud Storage with Firebase**: Tasks are stored and retrieved from **Firebase Firestore**, ensuring that each user can access only their personal tasks.
+- **User Authentication**: **Firebase Authentication** is used to securely manage user accounts and allow users to access their personal task lists.
+- **Add/Remove Tasks**: The app allows users to add and remove tasks with no limit (more than 20 tasks per user).
+- **Task List Display**: The tasks are displayed using a **RecyclerView**, making the user interface efficient and responsive.
+- **User-Specific Task List**: Each user has access only to their personal task list. There is no global list shared among all users.
 
-Cloud-based storage of tasks using Firebase Firestore
-Ability to add and remove tasks without a limit
-Task list displayed using a RecyclerView
-User authentication using Firebase Authentication
+---
 
-Authors
+### **Authors**
+- **Sehoon Park**
+- **Timothy Gilmore**
 
-Timothy Gilmore
-Sehoon Park
+### **Submission Details**
+We each submitted our individual repositories for this project. Both repositories include the full implementation of the cloud-based to-do list app with Firebase integration.
 
-Requirements
+---
 
-The tasks should be stored and retrieved from Firebase Firestore.
-A RecyclerView should be used to display the list of tasks.
-The user should be able to add and remove tasks without a limit.
-The app should use Firebase Authentication to manage user accounts.
-Each user should only be able to access their own task list, not a global list.
-The UI should be developed using XML layouts.
-The app should have a launcher icon.
-Device rotation should not affect the UI or data displayed.
-The app should provide sufficient comments to explain the Kotlin code.
-Both TAs and the instructor should be added as contributors to the GitHub repository.
-Both group members are expected to contribute to the GitHub repository.
-A README file should be provided in the GitHub repository.
-A screenshot of the app should be included in the README file.
+### **Requirements**
+- **Firebase Firestore**: Tasks should be stored and retrieved from Firebase Firestore to provide cloud storage.
+- **RecyclerView**: A **RecyclerView** should be used to display the list of tasks.
+- **Unlimited Tasks**: Users should be able to add and remove tasks without being limited to 20 tasks.
+- **Firebase Authentication**: Firebase Authentication should be used to manage user accounts, ensuring each user can only access their own tasks.
+- **User-Specific Access**: Ensure that each user has access to only their own list of tasks, with no ability to see or modify tasks from other users.
+- **UI Design**: The user interface should be developed using **XML layouts**, providing a responsive design for users.
+- **Launcher Icon**: A custom launcher icon should be set for the app.
+- **Device Rotation**: The app should maintain its UI and data correctly when the device is rotated.
+- **Code Comments**: The Kotlin code should be well-commented to explain its functionality.
+- **GitHub Collaboration**: The GitHub repository should include contributions from both group members, along with the instructor and TAs as contributors.
+- **Documentation**: The GitHub repository should include a **README** file, detailing how to set up and run the app, along with a screenshot of the app in action.
 
-Screenshot
-<img width="1031" alt="image" src="https://github.com/user-attachments/assets/603c9c41-f260-4f56-9be8-fb39487a7589">
+---
 
-Setup
+### **Screenshot**
+![App Screenshot](https://github.com/user-attachments/assets/603c9c41-f260-4f56-9be8-fb39487a7589)
 
-Create a new Firebase project in the Firebase console.
-Enable Firebase Authentication and Firestore in the Firebase console.
-Download the google-services.json file from the Firebase console and add it to the app-level directory of your Android project.
-Build and run the app on your device or emulator.
+---
