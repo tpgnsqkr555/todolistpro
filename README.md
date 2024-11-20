@@ -1,33 +1,40 @@
-# Midterm Project - To-Do List App
-## Purpose: Provide a quality application for tracking, editing, and viewing tasks
-### Authors: Timothy Gilmore, Sehoon Park
+To-Do List App (Cloud-based Version)
+Purpose
+The purpose of this project is to provide a cloud-based to-do list application for users to track, edit, and view their personal tasks.
+Features
 
-Features:
-- Clean view of the tasks
-- Add new tasks
-- Limits tasks to 7 at a time
+Cloud-based storage of tasks using Firebase Firestore
+Ability to add and remove tasks without a limit
+Task list displayed using a RecyclerView
+User authentication using Firebase Authentication
 
-App Screenshot: **_TODO_**
+Authors
 
-Requirements:
-- The tasks need to be shown in a RecyclerView.
-- No empty task slot should be shown on the screen.
-- An add button allows the user to enter a new task using a different activity.
-- The user input should be validated. a maximum of 25 characters is allowed.
-- In the home screen, if all the seven slots are used, the add button is replaced with text saying: "Too much work!".
-- Upon clicking a task, a new screen opens and shows the task name in addition to other four buttons, that are: Mark as complete, Cancel, Previous task, and Next task.
-- The Previous task, and Next task buttons allow the user to navigate the tasks without returning back to the home screen.
-- The Cancel button closes the current activity. The same functionality is expected in the task addition activity.
-- The Mark as complete button, closes the current screen and removes the task from the to-do list.
-- The app includes "About Activity", that provides information about the app and its two developers. This activity is accessible using a button from the home screen.
-- The task activity and the about activity should follow the UI design provided in the attached app diagram below.
-- Develop the UI using XML layouts.
-- Choose a launcher icon for the App.
-- Rotating the device does not show different UI components orientation.
-- Rotating the device keeps the data shown in the screen as is.
-- Every time the user opens the app, the last saved tasks should appear.
-- Provide sufficient comments to explain your Kotlin code.
-- Add both TAs and me as contributors to your project.
-- Both group members are expected to contribute to the GitHub repository.
-- Provide a ReadMe file in your GitHub repository.
-- Add a screenshot of the app to your repo. Show the screenshot in the ReadMe file.
+Timothy Gilmore
+Sehoon Park
+
+Requirements
+
+The tasks should be stored and retrieved from Firebase Firestore.
+A RecyclerView should be used to display the list of tasks.
+The user should be able to add and remove tasks without a limit.
+The app should use Firebase Authentication to manage user accounts.
+Each user should only be able to access their own task list, not a global list.
+The UI should be developed using XML layouts.
+The app should have a launcher icon.
+Device rotation should not affect the UI or data displayed.
+The app should provide sufficient comments to explain the Kotlin code.
+Both TAs and the instructor should be added as contributors to the GitHub repository.
+Both group members are expected to contribute to the GitHub repository.
+A README file should be provided in the GitHub repository.
+A screenshot of the app should be included in the README file.
+
+Screenshot
+<img width="1031" alt="image" src="https://github.com/user-attachments/assets/603c9c41-f260-4f56-9be8-fb39487a7589">
+
+Setup
+
+Create a new Firebase project in the Firebase console.
+Enable Firebase Authentication and Firestore in the Firebase console.
+Download the google-services.json file from the Firebase console and add it to the app-level directory of your Android project.
+Build and run the app on your device or emulator.
