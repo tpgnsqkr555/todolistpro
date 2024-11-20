@@ -1,6 +1,9 @@
 To-Do List App (Cloud-based Version)
+
 Purpose
+
 The purpose of this project is to provide a cloud-based to-do list application for users to track, edit, and view their personal tasks.
+
 Features
 
 Cloud-based storage of tasks using Firebase Firestore
