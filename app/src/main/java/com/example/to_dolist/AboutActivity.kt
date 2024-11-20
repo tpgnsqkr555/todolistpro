@@ -21,10 +21,10 @@ class AboutActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //Instantiate About page buttons:
+        //Instantiate about page buttons
         val backButton: Button = findViewById(R.id.about_back_button)
 
-        //Add listeners to the buttons that launch the related activities
+        //Add listeners to the buttons
         backButton.setOnClickListener{ //Closes the Activity
             Log.i("Buttons","About: Back Button pressed - Closing Activity")
             finish()

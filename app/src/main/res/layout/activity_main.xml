@@ -46,14 +46,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasks_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:paddingVertical="10dp"
         app:layout_constraintBottom_toTopOf="@+id/main_buttons_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_header"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/main_header" />
 
     <LinearLayout
         android:id="@+id/main_buttons_layout"
@@ -65,14 +64,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_max="320dp">
-
         <Button
             android:id="@+id/add_task_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add"
+            android:text="Add Task"
             android:textSize="@dimen/button_text_size"
-            app:layout_constraintBottom_toTopOf="@+id/about_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/signOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Out"
+            android:textSize="@dimen/button_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

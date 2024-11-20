@@ -1,5 +1,6 @@
 package com.example.to_dolist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,53 +8,50 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskAdapter (private val dataSet: ArrayList<String>, private val listener: RecyclerViewEvent) :
-    RecyclerView.Adapter<TaskAdapter.ViewHolder>() {interface RecyclerViewEvent {
+class TaskAdapter(
+    private var tasks: List<Task> = listOf(),
+    private val listener: RecyclerViewEvent
+) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
-        //Returns the clicked item position
-        fun onItemClick(
-            position: Int)
+    interface RecyclerViewEvent {
+        fun onItemClick(task: Task, position: Int)
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) , View.OnClickListener {
-        val textView: TextView
-        val imageView: ImageView
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+        val textView: TextView = view.findViewById(R.id.task_item)
+        val imageView: ImageView = view.findViewById(R.id.task_checkbox)
 
         init {
-            imageView = view.findViewById(R.id.task_checkbox)
             imageView.setImageResource(R.drawable.to_do_list_app_4_checkbox)
             imageView.setOnClickListener(this)
-        }
-        init {
-            textView = view.findViewById(R.id.task_item)
             textView.setOnClickListener(this)
         }
+
         override fun onClick(p0: View?) {
-            listener.onItemClick(adapterPosition)
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(tasks[position], position)
+            }
         }
     }
 
-    @Override
-    override fun onCreateViewHolder(
-        viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
+    fun updateTasks(newTasks: List<Task>) {
+        Log.d("TaskAdapter", "Updating with ${newTasks.size} tasks")
+        tasks = newTasks
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.tasks_view_layout, viewGroup, false)
         return ViewHolder(view)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    override fun onBindViewHolder(viewHolder: ViewHolder,
-                                  position: Int) {
-        if (dataSet[position]!=null)
-            viewHolder.textView.text = dataSet[position]
-         else
-            viewHolder.textView.text =  ""
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val task = tasks[position]
+        Log.d("TaskAdapter", "Binding task: ${task.title} at position $position")
+        viewHolder.textView.text = task.title
     }
-    //Returns the size of the dataset
-    @Override
-    override fun getItemCount() =
-        if (dataSet.size>7) 7
-        else dataSet.size
+
+    override fun getItemCount() = tasks.size
 }

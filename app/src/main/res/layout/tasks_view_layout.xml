@@ -4,25 +4,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintHeight_max="50dp"
-    android:orientation="horizontal"
-    android:textAlignment="center">
+    android:padding="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/task_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight=".2"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
         android:contentDescription="@string/checkbox_status"
         android:src="@drawable/to_do_list_app_4_checkbox"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/task_item"
-        android:paddingHorizontal="2dp"
-        android:layout_weight=".8"
-        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:textSize="@dimen/important_text_size" />
 
 </LinearLayout>
