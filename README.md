@@ -18,9 +18,6 @@ This project transforms the to-do list application into a cloud-based version by
 - **Sehoon Park**
 - **Timothy Gilmore**
 
-### **Submission Details**
-We each submitted our individual repositories for this project. Both repositories include the full implementation of the cloud-based to-do list app with Firebase integration.
-
 ---
 
 ### **Requirements**
